@@ -48,7 +48,7 @@ namespace NaverWebtoonDownloader.GUI
 
             if (File.Exists(GlobalStatic.WebtoonDatabaseFilePath))
             {
-                List<Webtoon> webtoons = await Task.Run(() =>
+                var webtoons = await Task.Run(() =>
                 {
                     var context = new WebtoonDbContext();
                     var linq = from w in context.Webtoons
@@ -59,6 +59,8 @@ namespace NaverWebtoonDownloader.GUI
                 foreach(var webtoon in webtoons)
                 {
                     var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
+                    downloadStatusViewModel.Downloader = viewModel.Model.Downloader;
+                    downloadStatusViewModel.MainWindowViewModel = viewModel;
                     downloadStatusViewModel.RegisterUpdateTask(viewModel.Tasks);
                     viewModel.DownloadStatusViewModels.Add(downloadStatusViewModel);
                 }

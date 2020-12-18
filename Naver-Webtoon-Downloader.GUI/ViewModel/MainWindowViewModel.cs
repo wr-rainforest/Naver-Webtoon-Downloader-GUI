@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -38,13 +39,30 @@ namespace NaverWebtoonDownloader.GUI
 
         public async void AddWebtoonAsync()
         {
-            string uri = UriTextBox;
-            int id = 0;
+            if (string.IsNullOrWhiteSpace(UriTextBox))
+            {
+                MessageBox_Show("URI를 입력해 주세요", "웹툰 정보 확인 실패", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            Uri uri;
+            if (!Uri.TryCreate(UriTextBox, UriKind.Absolute, out uri))
+            {
+                MessageBox_Show("URI 분석에 실패하였습니다.", "웹툰 정보 확인 실패", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            string titleId = HttpUtility.ParseQueryString(uri.Query).Get("titleId");
+            if (string.IsNullOrEmpty(titleId) || int.TryParse(titleId, out int id))
+            {
+                MessageBox_Show("URI에서 웹툰 정보를 확인할 수 없습니다.", "웹툰 정보 확인 실패", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             var linq = from vm in DownloadStatusViewModels
                        where vm.Webtoon.ID == id
                        select vm;
             if (linq.Any())
             {
+                MessageBox_Show("이미 추가된 웹툰입니다", "웹툰 추가 실패", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -55,6 +73,8 @@ namespace NaverWebtoonDownloader.GUI
                 await context.SaveChangesAsync();
             }
             var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
+            downloadStatusViewModel.Downloader = Model.Downloader;
+            downloadStatusViewModel.MainWindowViewModel = this;
             downloadStatusViewModel.RegisterUpdateTask(Tasks);
             DownloadStatusViewModels.Add(downloadStatusViewModel);
         }
@@ -98,11 +118,15 @@ namespace NaverWebtoonDownloader.GUI
 
         public MainWindowViewModel(MainWindowModel mainWindowModel)
         {
-            Model = mainWindowModel;
-            DownloadStatusViewModels = new ObservableCollection<DownloadStatusViewModel>();
             OpenDownloadFolderCommand = new Command(() => Process.Start("explorer.exe", Model.Config.DownloadFolder));
             OpenSettingWindowCommand = new OpenSettingWindowCommand(Model.Config);
             OpenGithubCommand = new Command(() => Process.Start("cmd", "/c https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI"));
+
+            AddWebtoonCommand = new Command(AddWebtoonAsync);
+
+            DownloadStatusViewModels = new ObservableCollection<DownloadStatusViewModel>();
+
+            Model = mainWindowModel;
         }
 
         #region INotifyPropertyChanged
