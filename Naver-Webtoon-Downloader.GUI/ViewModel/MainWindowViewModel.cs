@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
@@ -125,8 +126,27 @@ namespace NaverWebtoonDownloader.GUI
             AddWebtoonCommand = new Command(AddWebtoonAsync);
 
             DownloadStatusViewModels = new ObservableCollection<DownloadStatusViewModel>();
+            DownloadStatusViewModels.CollectionChanged += CollectionChanged;
 
             Model = mainWindowModel;
+        }
+
+        private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            RefreshBackground();
+        }
+
+        private void RefreshBackground()
+        {
+            int i = 0;
+            foreach (var item in DownloadStatusViewModels)
+            {
+                if (i % 2 == 0)
+                    item.Background = Brushes.White;
+                else
+                    item.Background = new SolidColorBrush(Color.FromRgb(0xf0, 0xf0, 0xf0));
+                i++;
+            };
         }
 
         #region INotifyPropertyChanged

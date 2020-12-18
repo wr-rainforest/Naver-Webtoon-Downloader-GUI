@@ -61,8 +61,8 @@ namespace NaverWebtoonDownloader.GUI
                     var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
                     downloadStatusViewModel.Downloader = viewModel.Model.Downloader;
                     downloadStatusViewModel.MainWindowViewModel = viewModel;
-                    downloadStatusViewModel.RegisterUpdateTask(viewModel.Tasks);
                     viewModel.DownloadStatusViewModels.Add(downloadStatusViewModel);
+                    downloadStatusViewModel.RegisterUpdateTask(viewModel.Tasks);
                 }
             }
             else

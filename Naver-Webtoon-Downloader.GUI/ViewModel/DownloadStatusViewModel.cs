@@ -86,6 +86,18 @@ namespace NaverWebtoonDownloader.GUI
                 OnPropertyChanged("IsRunning");
             }
         }
+
+        private Brush _background;
+        public Brush Background
+        {
+            get => _background;
+            set
+            {
+                _background = value;
+                _background.Freeze();
+                OnPropertyChanged();
+            }
+        }
         #endregion Property
 
         #region Command
@@ -109,6 +121,9 @@ namespace NaverWebtoonDownloader.GUI
 
         public void Delete()
         {
+            var result = MainWindowViewModel.MessageBox_Show($"'{Title}'을/를 목록에서 삭제할까요?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+                return;
             MainWindowViewModel.DownloadStatusViewModels.Remove(this);
             using (var context = new WebtoonDbContext())
             {
