@@ -133,7 +133,7 @@ namespace NaverWebtoonDownloader.GUI
         #region UnhandledException
         private void UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
-
+            File.WriteAllText("error.log", e.Exception.Message + "\r\n" + e.Exception.StackTrace);
         }
 
         private void UnhandledExceptionFilter(object sender, DispatcherUnhandledExceptionFilterEventArgs e)
@@ -141,5 +141,18 @@ namespace NaverWebtoonDownloader.GUI
             MessageBox.Show(e.Exception.Message);
         }
         #endregion UnhandledException
+
+        private void UriTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            UriTextBox.Focus();
+            if (e.Key == Key.Return)
+            {
+                var mainWindowViewModel = (sender as TextBox).DataContext as MainWindowViewModel;
+                if (!mainWindowViewModel.AddWebtoonCommand.CanExecute(null))
+                    return;
+                else
+                    mainWindowViewModel.AddWebtoonCommand.Execute(null);
+            }
+        }
     }
 }
