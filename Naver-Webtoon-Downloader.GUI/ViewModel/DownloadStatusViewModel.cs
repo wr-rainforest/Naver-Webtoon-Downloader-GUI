@@ -66,24 +66,53 @@ namespace NaverWebtoonDownloader.GUI
             OnPropertyChanged("Writer");
         }
 
+        public void RegisterDownloadTask(List<Task> taskList)
+        {
+            Task task = null;
+            task = Task.Run(async () =>
+            {
+                await Task.Delay(100);
+                while (true)
+                {
+                    int indexOfTasks = taskList.IndexOf(task);
+                    if (indexOfTasks > 0)
+                    {
+                        Status = $"다운로드 대기중..({taskList.IndexOf(task)})";
+                        await Task.WhenAny(taskList);
+                    }
+                    else if (indexOfTasks == 0)
+                        break;
+                    else
+                        await Task.Delay(10);
+                }
+                Status = "다운로드중..";
+                taskList.Remove(task);
+            });
+            taskList.Add(task);
+        }
+
         public void RegisterUpdateTask(List<Task> taskList)
         {
             Task task = null;
-            taskList.Add(task);
             task = Task.Run(async () =>
             {
                 while (true)
                 {
-                    if (taskList.IndexOf(task) > 0)
+                    int indexOfTasks = taskList.IndexOf(task);
+                    if (indexOfTasks > 0)
                     {
                         Status = $"URL캐시 업데이트 대기중..({taskList.IndexOf(task)})";
                         await Task.WhenAny(taskList);
-                        continue;
                     }
-                    Status = "URL캐시 업데이트중..";
+                    else if(indexOfTasks == 0)
+                        break;
+                    else
+                        await Task.Delay(10);
                 }
-
+                Status = "URL캐시 업데이트중..";
+                taskList.Remove(task);
             });
+            taskList.Add(task);
         }
 
         #region INotifyPropertyChanged

@@ -17,6 +17,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using NaverWebtoonDownloader;
+using NaverWebtoonDownloader.CoreLib.Database;
 
 namespace NaverWebtoonDownloader.GUI
 {
@@ -34,6 +35,29 @@ namespace NaverWebtoonDownloader.GUI
         public string UriTextBox { get; set; }
 
         public ICommand AddWebtoonCommand { get; set; }
+
+        public async void AddWebtoonAsync()
+        {
+            string uri = UriTextBox;
+            int id = 0;
+            var linq = from vm in DownloadStatusViewModels
+                       where vm.Webtoon.ID == id
+                       select vm;
+            if (linq.Any())
+            {
+                return;
+            }
+
+            Webtoon webtoon = await Model.Client.GetWebtoonAsync(id);
+            using (var context = new WebtoonDbContext())
+            {
+                await context.Webtoons.AddAsync(webtoon);
+                await context.SaveChangesAsync();
+            }
+            var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
+            downloadStatusViewModel.RegisterUpdateTask(Tasks);
+            DownloadStatusViewModels.Add(downloadStatusViewModel);
+        }
         #endregion Header
 
         #region Body
