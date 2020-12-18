@@ -3,41 +3,12 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Naver_Webtoon_Downloader.GUI</RootNamespace>
     <UseWPF>true</UseWPF>
-    <RootNamespace>NaverWebtoonDownloader.GUI</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Resources\Cancel_16x.png" />
-    <None Remove="Resources\Run_16x.png" />
-    <None Remove="Resources\Run_grey_16x.png" />
-    <None Remove="Resources\Stop_16x.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Naver-Webtoon-Downloader.CoreLib" Version="0.1.17" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Resource Include="Resources\Cancel_16x.png" />
-    <Resource Include="Resources\Run_16x.png" />
-    <Resource Include="Resources\Run_grey_16x.png" />
-    <Resource Include="Resources\Stop_16x.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <PackageReference Include="Naver-Webtoon-Downloader.CoreLib" Version="3.0.0-Pre-Alpha1" />
   </ItemGroup>
 
 </Project>

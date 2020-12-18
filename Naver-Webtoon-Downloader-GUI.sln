@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naver-Webtoon-Downloader.GUI", "Naver-Webtoon-Downloader.GUI\Naver-Webtoon-Downloader.GUI.csproj", "{0CCF414A-6853-42C9-919E-9A604FCEACF4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Naver-Webtoon-Downloader.GUI", "Naver-Webtoon-Downloader.GUI\Naver-Webtoon-Downloader.GUI.csproj", "{AB005175-9B8E-4708-98C1-D580709BB01C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0CCF414A-6853-42C9-919E-9A604FCEACF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0CCF414A-6853-42C9-919E-9A604FCEACF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0CCF414A-6853-42C9-919E-9A604FCEACF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0CCF414A-6853-42C9-919E-9A604FCEACF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB005175-9B8E-4708-98C1-D580709BB01C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB005175-9B8E-4708-98C1-D580709BB01C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB005175-9B8E-4708-98C1-D580709BB01C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB005175-9B8E-4708-98C1-D580709BB01C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

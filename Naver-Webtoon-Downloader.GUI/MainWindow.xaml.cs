@@ -11,7 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Data;
+using System.Windows.Shapes;
 
 namespace NaverWebtoonDownloader.GUI
 {
@@ -23,29 +23,9 @@ namespace NaverWebtoonDownloader.GUI
         public MainWindow()
         {
             InitializeComponent();
-            var mainWindowViewModel = new MainWindowViewModel(new Func<string, string, MessageBoxButton, MessageBoxImage, MessageBoxResult>(
-                (arg1, arg2, arg3, arg4) =>
-                {
-                    return Dispatcher.Invoke(new Func<MessageBoxResult>(() => MessageBox.Show(this, arg1, arg2, arg3, arg4)));
-                }));
-            //mainWindowViewModel.
-            DataContext = mainWindowViewModel;
         }
 
-        private void UriTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            UriTextBox.Focus();
-            if (e.Key == Key.Return)
-            {
-                var mainWindowViewModel = (sender as TextBox).DataContext as MainWindowViewModel;
-                if (!mainWindowViewModel.AddWebtoonCommand.CanExecute(null))
-                    return;
-                else
-                    mainWindowViewModel.AddWebtoonCommand.Execute(null);
-            }
-        }
-
-        private void SettingMenuItem_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
