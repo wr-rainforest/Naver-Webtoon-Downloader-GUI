@@ -3,7 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <RootNamespace>Naver_Webtoon_Downloader.GUI</RootNamespace>
+    <RootNamespace>NaverWebtoonDownloader.GUI</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
