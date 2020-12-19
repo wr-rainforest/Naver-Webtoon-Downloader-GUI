@@ -37,40 +37,47 @@ namespace NaverWebtoonDownloader.GUI
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var loadConfigTask = LoadConfig();
-            var updateCheckTask = CheckUpdate();
-            var viewModel = new MainWindowViewModel(new MainWindowModel(await loadConfigTask))
+            try
             {
-                MessageBox_Show = MessageBox.Show,
-                Footer1 = await updateCheckTask,
-            };
-            DataContext = viewModel;
-
-            if (File.Exists(GlobalStatic.WebtoonDatabaseFilePath))
-            {
-                var webtoons = await Task.Run(() =>
+                var loadConfigTask = LoadConfig();
+                var updateCheckTask = CheckUpdate();
+                var viewModel = new MainWindowViewModel(new MainWindowModel(await loadConfigTask))
                 {
-                    var context = new WebtoonDbContext();
-                    var linq = from w in context.Webtoons
-                               select w;
-                    return linq.ToList();
-                });
+                    MessageBox_Show = MessageBox.Show,
+                    Footer1 = await updateCheckTask,
+                };
+                DataContext = viewModel;
 
-                foreach(var webtoon in webtoons)
+                if (File.Exists(GlobalStatic.WebtoonDatabaseFilePath))
                 {
-                    var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
-                    downloadStatusViewModel.Downloader = viewModel.Model.Downloader;
-                    downloadStatusViewModel.MainWindowViewModel = viewModel;
-                    viewModel.DownloadStatusViewModels.Add(downloadStatusViewModel);
-                    downloadStatusViewModel.RegisterUpdateTask(viewModel.Tasks);
+                    var webtoons = await Task.Run(() =>
+                    {
+                        var context = new WebtoonDbContext();
+                        var linq = from w in context.Webtoons
+                                   select w;
+                        return linq.ToList();
+                    });
+
+                    foreach (var webtoon in webtoons)
+                    {
+                        var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
+                        downloadStatusViewModel.Downloader = viewModel.Model.Downloader;
+                        downloadStatusViewModel.MainWindowViewModel = viewModel;
+                        viewModel.DownloadStatusViewModels.Add(downloadStatusViewModel);
+                        downloadStatusViewModel.RegisterUpdateTask(viewModel.Tasks);
+                    }
+                }
+                else
+                {
+                    await Task.Run(() =>
+                    {
+                        using (var context = new WebtoonDbContext()) { }
+                    });
                 }
             }
-            else
+            catch(Exception ex)
             {
-                await Task.Run(() =>
-                {
-                    using (var context = new WebtoonDbContext()) { }
-                });
+                File.WriteAllText("error.log", ex.Message + "\r\n" + ex.StackTrace);
             }
         }
 
