@@ -26,15 +26,24 @@ namespace NaverWebtoonDownloader.GUI
     class MainWindowViewModel : INotifyPropertyChanged
     {
         #region Menu
-        public ICommand OpenDownloadFolderCommand { get; }
+        public Command OpenDownloadFolderCommand { get; }
 
         public ICommand OpenSettingWindowCommand { get; set; }
 
-        public ICommand OpenGithubCommand { get; set; }
+        public Command OpenGithubCommand { get; set; }
         #endregion Menu
 
         #region Header
-        public string UriTextBox { get; set; }
+        private string _uriTextBox;
+        public string UriTextBox
+        {
+            get => _uriTextBox;
+            set
+            {
+                _uriTextBox = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand AddWebtoonCommand { get; set; }
 
@@ -74,7 +83,6 @@ namespace NaverWebtoonDownloader.GUI
                 await context.SaveChangesAsync();
             }
             var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
-            downloadStatusViewModel.Downloader = Model.Downloader;
             downloadStatusViewModel.MainWindowViewModel = this;
             downloadStatusViewModel.RegisterUpdateTask(Tasks);
             DownloadStatusViewModels.Add(downloadStatusViewModel);
@@ -119,9 +127,11 @@ namespace NaverWebtoonDownloader.GUI
 
         public MainWindowViewModel(MainWindowModel mainWindowModel)
         {
-            OpenDownloadFolderCommand = new Command(() => Process.Start("explorer.exe", Model.Config.DownloadFolder));
+            Model = mainWindowModel;
+
+            OpenDownloadFolderCommand = new Command(() => Process.Start("explorer.exe", System.IO.Path.GetFullPath(Model.Config.DownloadFolder)));
             OpenSettingWindowCommand = new OpenSettingWindowCommand(Model.Config);
-            OpenGithubCommand = new Command(() => Process.Start("cmd", "/c https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI"));
+            OpenGithubCommand = new Command(() => Process.Start(new ProcessStartInfo("cmd", "/c start https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI") { CreateNoWindow = true }));
 
             AddWebtoonCommand = new Command(AddWebtoonAsync);
 
@@ -131,6 +141,7 @@ namespace NaverWebtoonDownloader.GUI
             Model = mainWindowModel;
         }
 
+        #region Event
         private void CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             RefreshBackground();
@@ -148,6 +159,7 @@ namespace NaverWebtoonDownloader.GUI
                 i++;
             };
         }
+        #endregion Event
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

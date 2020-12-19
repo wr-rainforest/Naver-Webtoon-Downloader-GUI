@@ -19,6 +19,7 @@ namespace NaverWebtoonDownloader.GUI
 
         public MainWindowModel(Config config)
         {
+            Config = config;
             Downloader = new Downloader(Config);
             Client = new NaverWebtoonClient();
         }

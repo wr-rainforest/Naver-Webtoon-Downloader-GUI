@@ -9,7 +9,17 @@ namespace NaverWebtoonDownloader.GUI
     {
         public event EventHandler CanExecuteChanged;
 
-        private bool _canExecute;
+        public bool Executable 
+        {
+            get => _canExecute;
+            set
+            {
+                _canExecute = value;
+                CanExecuteChanged(this, new EventArgs());
+            }
+        }
+
+        private bool _canExecute = true;
 
         private Action _execute;
 
@@ -26,8 +36,10 @@ namespace NaverWebtoonDownloader.GUI
         public void Execute(object parameter)
         {
             _canExecute = false;
+            CanExecuteChanged(this, new EventArgs());
             _execute();
             _canExecute = true;
+            CanExecuteChanged(this, new EventArgs());
         }
     }
 }

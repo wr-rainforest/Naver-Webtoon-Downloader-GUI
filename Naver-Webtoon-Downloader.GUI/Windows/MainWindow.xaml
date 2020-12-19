@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaverWebtoonDownloader.GUI"
         mc:Ignorable="d"
-        Title="MainWindow" 
+        Title="Naver-Webtoon-Downloader" 
         Height="675" Width="1200" 
         MinHeight="675" MinWidth="1200" 
         WindowStartupLocation="CenterScreen" 
@@ -61,7 +61,7 @@
             <MenuItem Header="도구" >
                 <MenuItem Header="이미지 병합" IsEnabled="False"></MenuItem>
             </MenuItem>
-            <MenuItem Header="설정" Command="{Binding Path=SettingCommand}">
+            <MenuItem Header="설정" Command="{Binding Path=OpenSettingWindowCommand}">
             </MenuItem>
             <MenuItem Header="도움말">
                 <MenuItem Header="정보" ></MenuItem>
@@ -82,9 +82,10 @@
                     <RowDefinition Height="1*"></RowDefinition>
                     <RowDefinition Height="5"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Image Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Grid.Column="0" Grid.Row="1" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center"
+                       Source="/Resources/ASX_Link_grey_16x.png">
                 </Image>
-                <TextBox x:Name="UriTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding Uri, UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" VerticalContentAlignment="Center" KeyDown="UriTextBox_KeyDown">
+                <TextBox x:Name="UriTextBox" Grid.Column="1" Grid.Row="1" Text="{Binding UriTextBox, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" VerticalContentAlignment="Center" KeyDown="UriTextBox_KeyDown">
                     <TextBox.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="CornerRadius" Value="3"/>
@@ -103,7 +104,7 @@
         <DataGrid BorderBrush="White" 
                   AutoGenerateColumns="False" 
                   BorderThickness="0" Margin="1" 
-                  DataContext="{Binding Downloads}" 
+                  DataContext="{Binding DownloadStatusViewModels}" 
                   ItemsSource="{Binding}"
                   Grid.Row="2"
                   x:Name="DownloadStatusDataGrid"
@@ -169,8 +170,20 @@
                 <DataGridTemplateColumn Width="30" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=StartCommand}" IsEnabled="{Binding IsStartButtonEnabled, UpdateSourceTrigger=PropertyChanged}">
-                                <Image Source="{Binding StartButtonImage, UpdateSourceTrigger=PropertyChanged}"></Image>
+                            <Button Command="{Binding Path=StartCommand}" IsEnabled="{Binding !IsRunning}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Name="StartButtonImage"></Image>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsEnabled" Value="True">
+                                                <Setter TargetName="StartButtonImage" Property="Source" Value="/Resources/Run_16x.png"></Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter TargetName="StartButtonImage" Property="Source" Value="/Resources/Run_grey_16x.png"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -178,8 +191,33 @@
                 <DataGridTemplateColumn Width="30" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=StopDeleteCommand}" IsEnabled="{Binding IsStopDeleteButtonEnabled, UpdateSourceTrigger=PropertyChanged}" >
-                                <Image Source="{Binding StopDeleteButtonImage, UpdateSourceTrigger=PropertyChanged}"></Image>
+                            <Button Command="{Binding Path=StopCommand}" IsEnabled="{Binding IsRunning}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Name="StopButtonImage"></Image>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsEnabled" Value="True">
+                                                <Setter TargetName="StopButtonImage" Property="Source" Value="/Resources/Stop_16x.png"></Setter>
+                                            </Trigger>
+                                            <Trigger Property="IsEnabled" Value="False">
+                                                <Setter TargetName="StopButtonImage" Property="Source" Value="/Resources/Stop_grey_16x.png"></Setter>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Button.Template>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="30" Header="">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Command="{Binding Path=DeleteCommand}">
+                                <Button.Template>
+                                    <ControlTemplate>
+                                        <Image Name="DeleteButtonImage" Source="/Resources/Cancel_16x"></Image>
+                                    </ControlTemplate>
+                                </Button.Template>
                             </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -188,7 +226,7 @@
         </DataGrid>
         <Border BorderBrush="#d7d7d7" BorderThickness="1" Background="#f0f0f0" Grid.Row="3">
             <StackPanel Orientation="Horizontal">
-                <Label Content="{Binding Footer1, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Padding="0"></Label>
+                <Label Content="{Binding Footer1, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Padding="0" Margin="1,0,0,0"></Label>
                 <Label Content="{Binding Footer2, UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" Padding="0"></Label>
             </StackPanel>
         </Border>
