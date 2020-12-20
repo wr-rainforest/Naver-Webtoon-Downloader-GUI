@@ -61,7 +61,7 @@ namespace NaverWebtoonDownloader.GUI
                 return;
             }
             string titleId = HttpUtility.ParseQueryString(uri.Query).Get("titleId");
-            if (string.IsNullOrEmpty(titleId) || int.TryParse(titleId, out int id))
+            if (string.IsNullOrEmpty(titleId) || !int.TryParse(titleId, out int id))
             {
                 MessageBox_Show("URI에서 웹툰 정보를 확인할 수 없습니다.", "웹툰 정보 확인 실패", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -82,10 +82,12 @@ namespace NaverWebtoonDownloader.GUI
                 await context.Webtoons.AddAsync(webtoon);
                 await context.SaveChangesAsync();
             }
-            var downloadStatusViewModel = new DownloadStatusViewModel(webtoon);
-            downloadStatusViewModel.MainWindowViewModel = this;
-            downloadStatusViewModel.RegisterUpdateTask(Tasks);
+            var downloadStatusViewModel = new DownloadStatusViewModel(webtoon)
+            {
+                MainWindowViewModel = this,
+            };
             DownloadStatusViewModels.Add(downloadStatusViewModel);
+            downloadStatusViewModel.RegisterUpdateTask(Tasks);
         }
         #endregion Header
 

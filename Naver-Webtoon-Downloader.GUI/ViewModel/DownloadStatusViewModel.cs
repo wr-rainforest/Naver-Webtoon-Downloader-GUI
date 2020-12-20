@@ -55,13 +55,13 @@ namespace NaverWebtoonDownloader.GUI
             }
         }
 
-        private string _status;
-        public string Status
+        private string _statusMessage;
+        public string StatusMessage
         {
-            get => _status;
+            get => _statusMessage;
             set
             {
-                _status = value;
+                _statusMessage = value;
                 OnPropertyChanged();
             }
         }
@@ -120,8 +120,11 @@ namespace NaverWebtoonDownloader.GUI
             {
                 _isRunning = value;
                 OnPropertyChanged();
+                OnPropertyChanged("IsNotRunning");
             }
         }
+
+        public bool IsNotRunning { get => !_isRunning; }
 
         private CancellationTokenSource _cts;
         private CancellationTokenSource Cts
@@ -171,7 +174,7 @@ namespace NaverWebtoonDownloader.GUI
             Cts = null;
         }
 
-        public void Delete()
+        public async void Delete()
         {
             Cts?.Cancel();
             MessageBoxResult result;
@@ -182,6 +185,7 @@ namespace NaverWebtoonDownloader.GUI
             using (var context = new WebtoonDbContext())
             {
                 context.Webtoons.Remove(Webtoon);
+                await context.SaveChangesAsync();
             }
         }
         #endregion
@@ -201,7 +205,6 @@ namespace NaverWebtoonDownloader.GUI
         {
             Cts = new CancellationTokenSource();
             CancellationToken ct = Cts.Token;
-
             Task task = null;
             task = Task.Run(async () =>
             {
@@ -218,21 +221,21 @@ namespace NaverWebtoonDownloader.GUI
                     else
                         lastNo = (int)linq.Max();
                 }
-                bool isUpdateFinished = latestNo > lastNo;
+                bool isUpdateFinished = latestNo == lastNo;
 
                 while (true)
                 {
                     if (ct.IsCancellationRequested)
                     {
-                        Status = "작업이 취소되었습니다.";
+                        StatusMessage = "작업이 취소되었습니다.";
                         taskList.Remove(task);
                         return;
                     }
                     int indexOfTasks = taskList.IndexOf(task);
                     if (indexOfTasks > 0 && isUpdateFinished)
-                        Status = $"다운로드 대기중..({taskList.IndexOf(task)})";
+                        StatusMessage = $"다운로드 대기중..({taskList.IndexOf(task)})";
                     if (indexOfTasks > 0 && !isUpdateFinished)
-                        Status = $"URL 캐시 업데이트 대기중..({taskList.IndexOf(task)})";
+                        StatusMessage = $"URL 캐시 업데이트 대기중..({taskList.IndexOf(task)})";
                     else if (indexOfTasks == 0)
                         break;
                     await Task.Delay(100);
@@ -241,12 +244,9 @@ namespace NaverWebtoonDownloader.GUI
                     await UpdateAsync(ct, lastNo + 1);
                 await DownloadAsync(ct);
                 if (ct.IsCancellationRequested)
-                {
-                    taskList.Remove(task);
-                    Cts = null;
-                    return;
-                }
-                Status = "다운로드 완료";
+                    StatusMessage = "작업이 취소되었습니다";
+                else
+                    StatusMessage = "다운로드 완료";
                 taskList.Remove(task);
                 Cts = null;
                 return;
@@ -258,20 +258,19 @@ namespace NaverWebtoonDownloader.GUI
         {
             var downloadProgress = new DownloadProgress(this);
             await MainWindowViewModel.Model.Downloader.DownloadAsync(Webtoon,
-                                                                     (s) => { Status = s; },
+                                                                     (s) => { StatusMessage = s; },
                                                                      downloadProgress,
                                                                      ct);
             if (ct.IsCancellationRequested)
                 return;
-            Status = "다운로드 완료";
-            downloadProgress.Finish();
+            downloadProgress.FinalizeStatus();
         }
 
         public void RegisterUpdateTask(List<Task> taskList)
         {
-            Task task = null;
             Cts = new CancellationTokenSource();
             CancellationToken ct = Cts.Token;
+            Task task = null;
             task = Task.Run(async () =>
             {
                 NaverWebtoonClient client = new NaverWebtoonClient();
@@ -289,7 +288,7 @@ namespace NaverWebtoonDownloader.GUI
                 }
                 if (lastNo == latestNo)
                 {
-                    Status = "URL캐시 업데이트 완료";
+                    StatusMessage = "URL캐시 업데이트 완료";
                     taskList.Remove(task);
                     return;
                 }
@@ -298,23 +297,24 @@ namespace NaverWebtoonDownloader.GUI
                 {
                     if (ct.IsCancellationRequested)
                     {
-                        Status = "작업이 취소되었습니다.";
+                        StatusMessage = "작업이 취소되었습니다";
                         taskList.Remove(task);
                         return;
                     }
                     int indexOfTasks = taskList.IndexOf(task);
-                    if (indexOfTasks > 0)
-                    {
-                        Status = $"URL캐시 업데이트 대기중..({taskList.IndexOf(task)})";
-                        await Task.Delay(300);
-                    }
+                    if (indexOfTasks > 0 && lastNo > 0)
+                        StatusMessage = $"URL캐시 업데이트 대기중..({taskList.IndexOf(task)})";
+                    else if (indexOfTasks > 0 && lastNo == 0)
+                        StatusMessage = $"URL캐시 생성 대기중..({taskList.IndexOf(task)})";
                     else if(indexOfTasks == 0)
                         break;
-                    else
-                        await Task.Delay(10);
+                    await Task.Delay(100);
                 }
-
                 await UpdateAsync(ct, lastNo + 1);
+                if (ct.IsCancellationRequested)
+                    StatusMessage = "작업이 취소되었습니다";
+                else
+                    StatusMessage = "URL캐시 업데이트 완료";
 
                 taskList.Remove(task);
                 Cts = null;
@@ -328,13 +328,12 @@ namespace NaverWebtoonDownloader.GUI
             var updateProgress = new UpdateProgress(this);
             await MainWindowViewModel.Model.Downloader.UpdateDbAsync(Webtoon,
                                                                      from,
-                                                                     (s) => { Status = s; },
+                                                                     (s) => { StatusMessage = s; },
                                                                      updateProgress,
                                                                      ct);
             if (ct.IsCancellationRequested)
                 return;
-            Status = "URL캐시 업데이트 완료";
-            updateProgress.Finish();
+            updateProgress.FinalizeStatus();
         }
 
         #region INotifyPropertyChanged

@@ -29,14 +29,14 @@ namespace NaverWebtoonDownloader.GUI
         public void Report((int Pos, int Count, int Size) value)
         {
             _viewModel.Progress = (double)value.Pos / value.Count;
-            _viewModel.ProgressMessage = $"{_viewModel.Progress: P} [{value.Pos}/{value.Count}]";
+            _viewModel.ProgressMessage = $"{_viewModel.Progress:P} [{value.Pos}/{value.Count}]";
             _viewModel.Size = _size + value.Size;
         }
 
-        public void Finish()
+        public void FinalizeStatus()
         {
             _viewModel.Progress = 1d;
-            _viewModel.ProgressMessage = $"{_viewModel.Progress: P} [{_count}/{_count}]";
+            _viewModel.ProgressMessage = $"{_viewModel.Progress:P} [{_count}/{_count}]";
         }
     }
 }

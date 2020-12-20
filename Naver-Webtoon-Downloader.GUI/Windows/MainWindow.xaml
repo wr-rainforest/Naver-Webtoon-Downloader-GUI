@@ -139,7 +139,7 @@
                 <DataGridTemplateColumn Width="200" Header="최신 회차">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding LatestEpisodeTitle, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LabelStyle}"></Label>
+                            <Label Content="{Binding LatestEpisode, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource LabelStyle}"></Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -155,7 +155,7 @@
                         <DataTemplate>
                             <Grid>
                                 <ProgressBar Height="5" Minimum="0" Maximum="1" Value="{Binding Path=Progress, UpdateSourceTrigger=PropertyChanged}"></ProgressBar>
-                                <Label Content="{Binding ProgressMessgae, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                                <Label Content="{Binding ProgressMessage, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -170,7 +170,7 @@
                 <DataGridTemplateColumn Width="30" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=StartCommand}" IsEnabled="{Binding !IsRunning}">
+                            <Button Command="{Binding Path=StartCommand}" IsEnabled="{Binding IsNotRunning, UpdateSourceTrigger=PropertyChanged}">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Name="StartButtonImage"></Image>
@@ -191,7 +191,7 @@
                 <DataGridTemplateColumn Width="30" Header="">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Command="{Binding Path=StopCommand}" IsEnabled="{Binding IsRunning}">
+                            <Button Command="{Binding Path=StopCommand}" IsEnabled="{Binding IsRunning, UpdateSourceTrigger=PropertyChanged}">
                                 <Button.Template>
                                     <ControlTemplate>
                                         <Image Name="StopButtonImage"></Image>
@@ -215,7 +215,7 @@
                             <Button Command="{Binding Path=DeleteCommand}">
                                 <Button.Template>
                                     <ControlTemplate>
-                                        <Image Name="DeleteButtonImage" Source="/Resources/Cancel_16x"></Image>
+                                        <Image Name="DeleteButtonImage" Source="/Resources/Cancel_16x.png"></Image>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>

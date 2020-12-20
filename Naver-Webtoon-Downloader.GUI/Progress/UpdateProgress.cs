@@ -23,15 +23,17 @@ namespace NaverWebtoonDownloader.GUI
         {
             _viewModel.LatestEpisode = value.Episode.Title;
             _viewModel.Progress = (double) value.Pos / value.Count;
-            _viewModel.ProgressMessage = $"{_viewModel.Progress : P} [{value.Pos}/{value.Count}]";
+            _viewModel.ProgressMessage = $"{_viewModel.Progress :P} [{value.Pos}/{value.Count}]";
+            list.Add(value.Episode);
+            _count = value.Count;
         }
 
-        public void Finish()
+        public void FinalizeStatus()
         {
             var lastEpi = list.OrderBy(x => x.No).Last();
             _viewModel.LatestEpisode = $"[{lastEpi.Date:yyyy.MM.dd}] {lastEpi.Title}";
             _viewModel.Progress = 1d;
-            _viewModel.ProgressMessage = $"{_viewModel.Progress: P} [{_count}/{_count}]";
+            _viewModel.ProgressMessage = $"{_viewModel.Progress:P} [{_count}/{_count}]";
         }
     }
 }

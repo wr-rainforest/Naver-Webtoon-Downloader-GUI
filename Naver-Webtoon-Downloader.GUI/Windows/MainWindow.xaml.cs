@@ -139,6 +139,7 @@ namespace NaverWebtoonDownloader.GUI
         #region UnhandledException
         private void UnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            e.Handled = false;
             File.WriteAllText("error.log", e.Exception.Message + "\r\n" + e.Exception.StackTrace);
         }
 
