@@ -22,7 +22,7 @@ namespace NaverWebtoonDownloader.GUI {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace NaverWebtoonDownloader.GUI {
         ///   이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NaverWebtoonDownloader.GUI.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace NaverWebtoonDownloader.GUI {
         ///   재정의합니다.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace NaverWebtoonDownloader.GUI {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] ASX_Link_grey_16x {
+        public static byte[] ASX_Link_grey_16x {
             get {
                 object obj = ResourceManager.GetObject("ASX_Link_grey_16x", resourceCulture);
                 return ((byte[])(obj));
@@ -73,7 +73,7 @@ namespace NaverWebtoonDownloader.GUI {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] Cancel_16x {
+        public static byte[] Cancel_16x {
             get {
                 object obj = ResourceManager.GetObject("Cancel_16x", resourceCulture);
                 return ((byte[])(obj));
@@ -81,29 +81,61 @@ namespace NaverWebtoonDownloader.GUI {
         }
         
         /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
+        ///   System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] Cancel_grey_16x {
+        public static System.Drawing.Bitmap FolderOpened_16x {
             get {
-                object obj = ResourceManager.GetObject("Cancel_grey_16x", resourceCulture);
-                return ((byte[])(obj));
+                object obj = ResourceManager.GetObject("FolderOpened_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   MIT License
+        ///
+        ///Copyright (c) 2020 wr-rainforest
+        ///
+        ///Permission is hereby granted, free of charge, to any person obtaining a copy
+        ///of this software and associated documentation files (the &quot;Software&quot;), to deal
+        ///in the Software without restriction, including without limitation the rights
+        ///to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        ///copies of the Software, and to permit persons to whom the Software is
+        ///furnished to do so, subject to the following conditions:
+        ///
+        ///The above copyright [나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string LICENSE {
+            get {
+                return ResourceManager.GetString("LICENSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Microsoft.EntityFrameworkCore.Sqlite
+        ///https://github.com/dotnet/efcore
+        ///                                 Apache License
+        ///                           Version 2.0, January 2004
+        ///                        http://www.apache.org/licenses/
+        ///
+        ///   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+        ///
+        ///   1. Definitions.
+        ///
+        ///      &quot;License&quot; shall mean the terms and conditions for use, reproduction,
+        ///      and distribution as defined by Sections 1 through 9 of this document.
+        ///
+        ///      &quot;Licensor&quot; shall mean the co[나머지 문자열은 잘림]&quot;;과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        public static string OpenSourceLicense {
+            get {
+                return ResourceManager.GetString("OpenSourceLicense", resourceCulture);
             }
         }
         
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] Link_16x {
-            get {
-                object obj = ResourceManager.GetObject("Link_16x", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
-        /// </summary>
-        internal static byte[] Run_16x {
+        public static byte[] Run_16x {
             get {
                 object obj = ResourceManager.GetObject("Run_16x", resourceCulture);
                 return ((byte[])(obj));
@@ -113,7 +145,7 @@ namespace NaverWebtoonDownloader.GUI {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] Run_grey_16x {
+        public static byte[] Run_grey_16x {
             get {
                 object obj = ResourceManager.GetObject("Run_grey_16x", resourceCulture);
                 return ((byte[])(obj));
@@ -123,7 +155,7 @@ namespace NaverWebtoonDownloader.GUI {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] Stop_16x {
+        public static byte[] Stop_16x {
             get {
                 object obj = ResourceManager.GetObject("Stop_16x", resourceCulture);
                 return ((byte[])(obj));
@@ -133,7 +165,7 @@ namespace NaverWebtoonDownloader.GUI {
         /// <summary>
         ///   System.Byte[] 형식의 지역화된 리소스를 찾습니다.
         /// </summary>
-        internal static byte[] Stop_grey_16x {
+        public static byte[] Stop_grey_16x {
             get {
                 object obj = ResourceManager.GetObject("Stop_grey_16x", resourceCulture);
                 return ((byte[])(obj));

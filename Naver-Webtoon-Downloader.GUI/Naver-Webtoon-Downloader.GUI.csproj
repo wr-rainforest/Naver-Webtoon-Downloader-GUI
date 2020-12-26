@@ -2,27 +2,42 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
+    <TargetFramework>net5.0-windows</TargetFramework>
     <RootNamespace>NaverWebtoonDownloader.GUI</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>Naver-Webtoon-Downloader-GUI</AssemblyName>
+    <Version>0.2.0</Version>
+    <Authors>wr-rainforest</Authors>
+    <Copyright>Copyright 2020. wr-rainforest all rights reserved</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Description>네이버 웹툰 다운로더</Description>
+    <PackageProjectUrl>https://github.com/wr-rainforest/Naver-Webtoon-Downloader</PackageProjectUrl>
+    <ApplicationIcon>nwd_logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\ASX_Link_grey_16x.png" />
     <None Remove="Resources\Cancel_16x.png" />
+    <None Remove="Resources\FolderOpened_16x.png" />
     <None Remove="Resources\Run_16x.png" />
     <None Remove="Resources\Run_grey_16x.png" />
     <None Remove="Resources\Stop_16x.png" />
+    <None Remove="Resources\Stop_grey_16x.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Naver-Webtoon-Downloader.CoreLib" Version="0.1.17" />
+    <PackageReference Include="Naver-Webtoon-Downloader.CoreLib" Version="3.0.0-Alpha4" />
+    <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\ASX_Link_grey_16x.png" />
     <Resource Include="Resources\Cancel_16x.png" />
+    <Resource Include="Resources\FolderOpened_16x.png" />
     <Resource Include="Resources\Run_16x.png" />
     <Resource Include="Resources\Run_grey_16x.png" />
     <Resource Include="Resources\Stop_16x.png" />
+    <Resource Include="Resources\Stop_grey_16x.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,7 +50,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
