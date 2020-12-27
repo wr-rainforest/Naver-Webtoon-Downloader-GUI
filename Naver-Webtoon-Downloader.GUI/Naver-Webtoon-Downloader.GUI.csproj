@@ -13,6 +13,8 @@
     <Description>네이버 웹툰 다운로더</Description>
     <PackageProjectUrl>https://github.com/wr-rainforest/Naver-Webtoon-Downloader</PackageProjectUrl>
     <ApplicationIcon>nwd_logo.ico</ApplicationIcon>
+    <AssemblyVersion>0.2.0.2</AssemblyVersion>
+    <FileVersion>0.2.0.2</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Naver-Webtoon-Downloader.CoreLib" Version="3.0.0-Alpha5" />
+    <PackageReference Include="Naver-Webtoon-Downloader.CoreLib" Version="3.0.0-Alpha6" />
     <PackageReference Include="Ookii.Dialogs.Wpf" Version="3.1.0" />
   </ItemGroup>
 

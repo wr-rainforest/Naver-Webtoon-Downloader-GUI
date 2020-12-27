@@ -11,7 +11,7 @@ namespace NaverWebtoonDownloader.GUI
     {
         Version version = Assembly.GetExecutingAssembly().GetName().Version;
         public string Information =>
-            $"Naver-Webtoon-Downloader-GUI v{version.Major}.{version.Minor}\r\n" +
+            $"Naver-Webtoon-Downloader-GUI v{version}\r\n" +
             $"Source: https://github.com/wr-rainforest/Naver-Webtoon-Downloader\r\n" +
             $"{new string('-', 100)}\r\n" +
             Resources.LICENSE +

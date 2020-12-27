@@ -1,7 +1,8 @@
 ## Naver-Webtoon-Downloader-GUI
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/wr-rainforest/Naver-Webtoon-Downloader-GUI?label=latest&style=flat-square)](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases/latest)
-[![GitHub All Releases](https://img.shields.io/github/downloads/wr-rainforest/Naver-Webtoon-Downloader-GUI/total?label=Downloades&style=flat-square)](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases)    
-  
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/wr-rainforest/Naver-Webtoon-Downloader-GUI?label=pre-release&include_prereleases&style=flat-square)
+[![GitHub All Releases](https://img.shields.io/github/downloads/wr-rainforest/Naver-Webtoon-Downloader-GUI/total?label=Downloads&style=flat-square)](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases)    
+
   
 [v0.1.107.6](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases/tag/v.0.1.107.6)  
 [다운로드](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases/download/v.0.1.107.6/Naver-Webtoon-Downloader-GUI.v.0.1.107.6.zip)  
@@ -22,5 +23,3 @@
 윈도우 2018년 4월 업데이트(버전 1803) 이후 버전에서는 별다른 설정 없이 바로 실행이 가능합니다.      
 [.Net Frmamework 4.7.2 다운로드](https://dotnet.microsoft.com/download/dotnet-framework/net472)    
     
-    
-개발자 연락처 : contact@wrforest.com   

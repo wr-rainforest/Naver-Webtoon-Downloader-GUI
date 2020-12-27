@@ -22,7 +22,9 @@ namespace NaverWebtoonDownloader.GUI
             InitializeComponent();
             Dispatcher.UnhandledExceptionFilter += UnhandledExceptionFilter;
             var version = Assembly.GetExecutingAssembly().GetName().Version;
-            Title = $"Naver-Webtoon-Downloader-GUI v{version.Major}.{version.Minor}";
+            Title = 
+                $"Naver-Webtoon-Downloader v{version.Major}.{version.Minor}.{version.Build}" +
+                (version.Revision > 0 ? $"-Alpha{version.Revision}" : string.Empty);
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
