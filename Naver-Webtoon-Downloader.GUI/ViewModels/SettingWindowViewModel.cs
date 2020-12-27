@@ -47,7 +47,7 @@ namespace NaverWebtoonDownloader.GUI
             get => _config.NameFormat.WebtoonFolderNameFormat;
             set 
             {
-                _config.NameFormat.WebtoonFolderNameFormat = value.TrimEnd();
+                _config.NameFormat.WebtoonFolderNameFormat = value;
                 OnPropertyChanged("WebtoonFolderNameFormatExample");
             }
         }
@@ -70,7 +70,7 @@ namespace NaverWebtoonDownloader.GUI
             get => _config.NameFormat.EpisodeFolderNameFormat;
             set
             {
-                _config.NameFormat.EpisodeFolderNameFormat = value.TrimEnd();
+                _config.NameFormat.EpisodeFolderNameFormat = value;
                 OnPropertyChanged("EpisodeFolderNameFormatExample");
             }
         }
@@ -80,7 +80,7 @@ namespace NaverWebtoonDownloader.GUI
             {
                 try
                 {
-                    return string.Format(EpisodeFolderNameFormat, 111111, 1, "2020.12.26", "웹툰명", "회차 제목", "작가명");
+                    return string.Format(EpisodeFolderNameFormat, 111111, 1, DateTime.Now.Date, "웹툰명", "회차 제목", "작가명");
                 }
                 catch
                 {
@@ -103,7 +103,7 @@ namespace NaverWebtoonDownloader.GUI
             {
                 try
                 {
-                    return string.Format(ImageFileNameFormat, 111111, 1, 1, "웹툰명", "회차 제목", "2020.12.26");
+                    return string.Format(ImageFileNameFormat, 111111, 1, 1, "웹툰명", "회차 제목", DateTime.Now.Date);
                 }
                 catch
                 {
@@ -147,11 +147,14 @@ namespace NaverWebtoonDownloader.GUI
 
         public async Task SaveAsync()
         {
+            WebtoonFolderNameFormat = WebtoonFolderNameFormat.TrimEnd();
+            EpisodeFolderNameFormat = EpisodeFolderNameFormat.TrimEnd();
+            ImageFileNameFormat = ImageFileNameFormat.TrimEnd();
             try { string.Format(WebtoonFolderNameFormat, 111111, "웹툰명", "작가명"); }
             catch { MessageBox_Show_ErrorDialog("웹툰 폴더명 포맷이 올바르지 않습니다."); return; }
-            try { string.Format(EpisodeFolderNameFormat, 111111, 1, "2020.12.26", "웹툰명", "회차 제목", "작가명"); }
+            try { string.Format(EpisodeFolderNameFormat, 111111, 1, DateTime.Now.Date, "웹툰명", "회차 제목", "작가명"); }
             catch { MessageBox_Show_ErrorDialog("회차 폴더명 포맷이 올바르지 않습니다."); return; }
-            try { string.Format(ImageFileNameFormat, 111111, 1, 1, "웹툰명", "회차 제목", "2020.12.26"); }
+            try { string.Format(ImageFileNameFormat, 111111, 1, 1, "웹툰명", "회차 제목", DateTime.Now.Date); }
             catch { MessageBox_Show_ErrorDialog("이미지 파일명 포맷이 올바르지 않습니다."); return; }
             await File.WriteAllTextAsync(
                 GlobalStatic.ConfigFilePath,

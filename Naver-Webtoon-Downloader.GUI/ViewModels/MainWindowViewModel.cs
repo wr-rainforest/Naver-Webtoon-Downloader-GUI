@@ -82,6 +82,7 @@ namespace NaverWebtoonDownloader.GUI
 
         #region Commands
         public ICommand OpenDownloadFolderCommand { get; }
+        public ICommand OpenCookieSettingWindowCommand { get; set; }
         public ICommand OpenSettingWindowCommand { get; set; }
         public ICommand OpenGithubCommand { get; }
         public ICommand OpenInformationWindowCommand { get; set; }

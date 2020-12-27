@@ -55,6 +55,14 @@ namespace NaverWebtoonDownloader.GUI
                     };
                     informationWindow.Show();
                 }),
+                OpenCookieSettingWindowCommand = new Command(x =>
+                {
+                    CookieSettingWindow cookieSettingWindow = new CookieSettingWindow()
+                    {
+                        Owner = this,
+                    };
+                    cookieSettingWindow.Show();
+                }),
             };
             DataContext = viewModel;
             await viewModel.LoadAsync();
