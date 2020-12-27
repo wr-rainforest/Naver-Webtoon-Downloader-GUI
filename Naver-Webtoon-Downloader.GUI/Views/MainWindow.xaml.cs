@@ -31,6 +31,13 @@ namespace NaverWebtoonDownloader.GUI
         {
             var loadConfigTask = LoadConfig();
             var updateCheckTask = CheckUpdate();
+            var cookieSettingWindowViewModel = new CookieSettingWindowViewModel()
+            {
+                MessageBox_Show_ErrorDialog = new Action<string>(s => MessageBox.Show(s, "Naver-Webtoon-Downloader-GUI", MessageBoxButton.OK, MessageBoxImage.Warning)),
+                MessageBox_Show = new Func<string, MessageBoxButton, MessageBoxImage, MessageBoxResult>((s, b, i) => MessageBox.Show(s, "Naver-Webtoon-Downloader-GUI", b, i)),
+                SaveCookieEnabled = true,
+            };
+            await cookieSettingWindowViewModel.LoadAsync();
             var viewModel = new MainWindowViewModel(await loadConfigTask)
             {
                 MessageBox_Show = new Func<string, MessageBoxButton, MessageBoxImage, MessageBoxResult>((s, b, i) => MessageBox.Show(s, "Naver-Webtoon-Downloader-GUI", b, i)),
@@ -62,6 +69,7 @@ namespace NaverWebtoonDownloader.GUI
                     CookieSettingWindow cookieSettingWindow = new CookieSettingWindow()
                     {
                         Owner = this,
+                        DataContext = cookieSettingWindowViewModel,
                     };
                     cookieSettingWindow.Show();
                 }),
