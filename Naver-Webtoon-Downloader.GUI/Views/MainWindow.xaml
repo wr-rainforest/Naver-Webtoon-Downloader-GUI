@@ -59,9 +59,11 @@
                 <MenuItem Header="다운로드 폴더 열기" Command="{Binding Path=OpenDownloadFolderCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Header="도구" >
+                <MenuItem Header="쿠키 관리" Command="{Binding OpenCookieSettingWindowCommand}"></MenuItem>
                 <MenuItem Header="이미지 병합" IsEnabled="False"></MenuItem>
             </MenuItem>
-            <MenuItem Header="설정" Command="{Binding Path=OpenSettingWindowCommand}">
+            <MenuItem Header="설정">
+                <MenuItem Header="환경 설정" Command="{Binding Path=OpenSettingWindowCommand}"></MenuItem>
             </MenuItem>
             <MenuItem Header="도움말">
                 <MenuItem Header="정보" Command="{Binding OpenInformationWindowCommand}"></MenuItem>

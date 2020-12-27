@@ -274,7 +274,7 @@ namespace NaverWebtoonDownloader.GUI
             {
                 StatusMessage = $"회차 정보 동기화 진행중..";
                 await downloader.UpdateWebtoonDbAsync(Webtoon, new UpdateProgress(this), _cts.Token);
-            }, CancellationToken.None);
+            }, _cts.Token);
 
             Action handler = null;
             handler = () =>

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NaverWebtoonDownloader.GUI"
         mc:Ignorable="d"
-        Title="설정" Height="400" Width="600" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="환경 설정" Height="400" Width="600" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Window.Resources>
     </Window.Resources>
     <Grid>
