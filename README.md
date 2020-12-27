@@ -1,6 +1,6 @@
 ## Naver-Webtoon-Downloader-GUI
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/wr-rainforest/Naver-Webtoon-Downloader-GUI?label=latest&style=flat-square)](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases/latest)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/wr-rainforest/Naver-Webtoon-Downloader-GUI?label=pre-release&include_prereleases&style=flat-square)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/wr-rainforest/Naver-Webtoon-Downloader-GUI?label=pre-release&include_prereleases&style=flat-square)](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases)
 [![GitHub All Releases](https://img.shields.io/github/downloads/wr-rainforest/Naver-Webtoon-Downloader-GUI/total?label=Downloads&style=flat-square)](https://github.com/wr-rainforest/Naver-Webtoon-Downloader-GUI/releases)    
 
   
